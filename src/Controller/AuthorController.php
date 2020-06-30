@@ -17,9 +17,12 @@ class AuthorController extends AbstractController
      */
     public function index()
     {
-        return $this->render('author/index.html.twig', [
-            'controller_name' => 'AuthorController',
-        ]);
+        $authors = $this->getDoctrine()->getRepository(Author::class)->findAll();
+
+        $context['title'] = 'Authors';
+        $context['authors'] = $authors;
+
+        return $this->render('author/index.html.twig', $context);
     }
 
     /**

@@ -25,7 +25,8 @@ class BookType extends AbstractType
             ])
             ->add('description', TextareaType::class, [
                 'label' => 'Book description',
-                'attr' => [
+                'required' => false,
+                    'attr' => [
                     'placeholder' => 'Description'
                 ]
             ])

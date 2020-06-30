@@ -17,9 +17,12 @@ class BookController extends AbstractController
      */
     public function index()
     {
-        return $this->render('book/index.html.twig', [
-            'controller_name' => 'BookController',
-        ]);
+        $books = $this->getDoctrine()->getRepository(Book::class)->findAll();
+//        dd($books[0]->getAuthor()->getName());
+        $context['title'] = 'Books';
+        $context['books'] = $books;
+
+        return $this->render('book/index.html.twig', $context);
     }
 
     /**

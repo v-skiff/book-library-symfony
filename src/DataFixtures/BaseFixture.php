@@ -38,7 +38,6 @@ abstract class BaseFixture extends Fixture
             $factory($entity, $i);
 
             $this->manager->persist($entity);
-            // store for usage later as App\Entity\ClassName_#COUNT#
             $this->addReference($className . '_' . $i, $entity);
         }
     }

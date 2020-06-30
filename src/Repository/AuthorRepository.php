@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Author;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -19,32 +20,11 @@ class AuthorRepository extends ServiceEntityRepository
         parent::__construct($registry, Author::class);
     }
 
-    // /**
-    //  * @return Author[] Returns an array of Author objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function getWithQueryBuilder(): QueryBuilder
     {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('a.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        $qb = $this->createQueryBuilder('a');
+        return $qb
+            ->orderBy('a.name', 'DESC')
+            ;
     }
-    */
-
-
-    public function findOneById($value): ?Author
-    {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.id = :id')
-            ->setParameter('id', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-
 }

@@ -24,12 +24,13 @@
     <div class="container-fluid">
         <div class="row no-gutters">
             <div class="col-12 mt-5">
-                <h2>Authors list</h2>
+                <h2>Authors list (total: {{ pagination.getTotalItemCount }})</h2>
                 <ul>
-                    {% for author in authors %}
+                    {% for author in pagination %}
                         <li>{{ author.name }} ({{ author.books.count }} books)</li>
                     {% endfor %}
                 </ul>
+                {{ knp_pagination_render(pagination) }}
             </div>
         </div>
     </div>

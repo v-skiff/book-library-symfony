@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Book;
 use App\Form\BookType;
+use App\Service\BookService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,13 +15,17 @@ class BookController extends AbstractController
 {
     /**
      * @Route("/book", name="book")
+     * @param Request $request
+     * @param BookService $bookService
+     * @return Response
      */
-    public function index()
+    public function index(Request $request, BookService $bookService)
     {
-        $books = $this->getDoctrine()->getRepository(Book::class)->findAll();
-//        dd($books[0]->getAuthor()->getName());
+        $page = $request->query->getInt('page', 1);
+        $books = $bookService->getBooks($page);
+
         $context['title'] = 'Books';
-        $context['books'] = $books;
+        $context['pagination'] = $books;
 
         return $this->render('book/index.html.twig', $context);
     }

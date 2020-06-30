@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Author;
 use App\Form\AuthorType;
+use App\Service\AuthorService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,13 +15,17 @@ class AuthorController extends AbstractController
 {
     /**
      * @Route("/author", name="author")
+     * @param Request $request
+     * @param AuthorService $authorService
+     * @return Response
      */
-    public function index()
+    public function index(Request $request, AuthorService $authorService)
     {
-        $authors = $this->getDoctrine()->getRepository(Author::class)->findAll();
+        $page = $request->query->getInt('page', 1);
+        $authors = $authorService->getAuthors($page);
 
         $context['title'] = 'Authors';
-        $context['authors'] = $authors;
+        $context['pagination'] = $authors;
 
         return $this->render('author/index.html.twig', $context);
     }

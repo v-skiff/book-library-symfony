@@ -21,7 +21,7 @@ class AuthorType extends AbstractType
                 ]
             ])
             ->add('submit', SubmitType::class, [
-                'label' => 'Сохранить'
+                'label' => 'Submit'
             ])
         ;
     }
